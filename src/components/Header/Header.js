@@ -3,7 +3,7 @@ import './Header.css';
 
 const Header = () => (
     <div className="Header">
-        Facebook style board
+        Free Style Chatting Board
     </div>
 )
 

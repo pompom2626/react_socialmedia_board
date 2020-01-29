@@ -8,6 +8,7 @@ import { Header } from './components';
 //increas do list items
 let userId = 0;
 let rankindexId = 0;
+let replyId = 0;
 //img id and reference addr
 /* https://loremflickr.com/320/240?random=1 */
 
@@ -19,7 +20,7 @@ class App extends Component {
 
   //reuse for final project
   onclickUserListOrigin = () => {
-    const { userList, userNames, r } = this.state
+    const { userList, userNames } = this.state
     if (userNames.length === 0) return alert('Please, input user name')
     const userNamesContent = {
       id: userId++,
@@ -63,14 +64,24 @@ class App extends Component {
     this.setState({ rankList: newrankList })
   }
 
-  onclickCommentList = () => {
-    this.setState({
-      ...this.rankList,
-      commentList: {
-        id: 5,
-        commentMessage: 'hello world'
+  onclickreplyList = () => {
+    const { rankList, rankContents, userNames, userList } = this.state;
+
+    const replyContents = {
+      ...rankList,
+      replyList: {
+        id: replyId++,
+        replyMessage: '',
+        cname: '',
+        date: new Date()
       }
-    })
+    }
+
+    const newreplyList = rankList.map((rankList) => {
+      return rankList
+    });
+    newreplyList.push(replyContents);
+    this.setState({ rankList: newreplyList })
   }
 
   onclickAddList = () => {
@@ -119,15 +130,7 @@ class App extends Component {
 
   render() {
     const { selectedOptionKey } = this.state;
-    const CancelButton = item => (
-      <button
-        // className='btn btn-warning btn-sm'
-        style={{ marginLeft: 10 }}
-        onClick={() => this.onclickRemoveButton(item.rankid)}
-      >
-        Delete
-      </button>
-    )
+   
     return (
 
       <div className='container' style={{ maxWidth: 600, padding: '20px 0' }}>
@@ -147,15 +150,14 @@ class App extends Component {
               />
               <div className='input-group-append'>
                 <button
-                  className='btn btn-default'
+                  className='btn btn-secondary'
                   onClick={this.onclickUserListOrigin}
                 >
                   Submit
                 </button>
               </div>
             </div>
-            <div className='form-group'>
-
+            <div className='input-group'>
               <textarea
                 type='text'
                 className='form-control'
@@ -172,17 +174,10 @@ class App extends Component {
                 >
                   Submit
               </button>
-              </div>
+            </div>
             </div>
             <div className='input-group'>
-              {/* <input
-                type='text'
-                className='form-control'
-                placeholder='Input your favorite movie name'
-                value={this.state.docontents}
-                onChange={this.onchangeDoContents}
-                onKeyDown={e => e.keyCode === 13 ? this.onclickAddList() : null}
-              /> */}
+
               <div className='border border-primary input-group-append'>
                 <div className='btn btn-default'>
                   message ranking: {this.state.likeId}
@@ -203,76 +198,20 @@ class App extends Component {
                     onClick={this.onclickMinusList} />
                   -Dislike
                 </button>
-                <button className="btn btn-warning">
-                  Comment
-                </button>
+               {/*  <button className="btn btn-warning">
+                  Reply
+                </button> */}
               </div>
             </div>
           </div>
         </div>
         <div className='row' style={{ marginTop: 20 }}>
           <div /* className='col-6' */ >
-            <h3> </h3>
-            {
-              this.state.rankList.filter(item => item.completedDecision).map(item =>
-                /*   this.state.userList.map(item2 => */
-                <React.Fragment>
-                  <div className={`container${item.rankid}`} key={item.rankid}>
-                    <div className='row' style={{ float: 'left' }}>
-                      <img
-                        src={`https://loremflickr.com/120/120?random=${item.id}`}
-                        alt="users" />
-                    </div>
-                    <div className='row border border-primary' key={item.rankid} style={{ marginLeft: 120, marginBottom: 40 }} >
-                      <div className='col-sm'>Ranking Scores: {item.rankid}{"\n"}</div>
-                      <div className='col-sm' style={{ marginRight: 5, whiteSpace: "pre-wrap" }}>
-                        {item.date.toLocaleDateString('en-US')} {item.date.toLocaleTimeString('en-US')} {"\n"}
-                        {/* <MovieNames doitList={this.state.doitList} rankList={this.state.rankList} /> {"\n"} */}
-
-
-                      </div>
-                      <p className='w-100'>{item.rankMessage}</p>
-                      {/* <Users rankList={this.state.rankList} userList={this.state.userList} userNames={this.state.userNames} /> */}
-                      <div style={{ float: 'left' }}>
-                        <img
-                          src={`https://loremflickr.com/30/30?random=${item.id}`}
-                          alt="users" />
-                      </div>
-
-                      <div>
-                        Usernames : {item.uname}
-                      </div>
-                      {/* <div style={{ float: 'left' }}>
-                        <img
-                          src={`https://loremflickr.com/30/30?random=${this.rankList.uname}`}
-                          alt="users" /> 
-                      </div>
-                      <div>
-                        user name : {this.rankList.uname}
-                      </div>
- */}
-                      <div>{CancelButton(item)}</div>
-                    </div>
-                  </div>
-                </React.Fragment>
-              )
-            }
+            <h3> My Social Communication  </h3>
+            <Users rankList={this.state.rankList} userList={this.state.userList} userNames={this.state.userNames} />
           </div>
         </div>
-        {/* <form onSubmit={this.handleSubmit}> */}
 
-        {/* this is an UI for JSON data, but I use input-style for code reusage */}
-        {/*   <label>
-          Pick your user:
-          <select value={this.state.userNames} onChange={this.onchangeUserNames}>
-            <option value="100">Js</option>
-            <option value="200">Csharp</option>
-            <option value="300">Python</option>
-            <option value="400">CPlusPlus</option>
-          </select>
-        </label> */}
-        {/*  <input type="submit" value="Submit" />
-      </form> */}
         <div className='col-6'>
           <h3>Users Change</h3>
           <select onChange={this.onchangeUserNames}>
