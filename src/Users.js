@@ -36,20 +36,20 @@ class Users extends Component {
 
         return (
 
-            this.props.userList.filter(item2 => item2.uname == newuserNames).map(item2 =>
+         /*    this.props.userList.filter(item2 => item2.uname == newuserNames).map(item2 => */
                 <React.Fragment>
-                    <div style={{ float: 'left' }}>
+                    {/* <div style={{ float: 'left' }}>
                         <img
                             src={`https://loremflickr.com/30/30?random=${item2.id}`}
                             alt="users" />
-                    </div>
-                    <div>
+                    </div> */}
+                    {/* <div>
                         Usernames : {item2.uname}
-                    </div>
+                    </div> */}
                 </React.Fragment>
             )
 
-        )
+        
     };
 }
 

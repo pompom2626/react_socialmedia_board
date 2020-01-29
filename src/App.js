@@ -42,18 +42,18 @@ class App extends Component {
       completedDecision: true,
       date: new Date(),
       uid: userId++,
-      uname: userNames    
+      uname: userNames
     }
-    
+
     //if(Object.keys(rankList).length == Object.keys(userList).length-1){ 
-      const newrankList = rankList.map((rankList) => {
-        return rankList
-      });
-      if(Object.keys(newrankList).length < Object.keys(userList).length ){
+    const newrankList = rankList.map((rankList) => {
+      return rankList
+    });
+    if (Object.keys(newrankList).length < Object.keys(userList).length) {
       newrankList.push(votingContents)
-      }  else{
-        alert('Input user name first!');
-      }
+    } else {
+      alert('Input user name first!');
+    }
 
     //stack overflow : sort json object in javascript  https://stackoverflow.com/questions/17684921/sort-json-object-in-javascript
     //ranking sorting => To do list1 : to send outside event 
@@ -66,9 +66,9 @@ class App extends Component {
   onclickCommentList = () => {
     this.setState({
       ...this.rankList,
-      commentList:{
+      commentList: {
         id: 5,
-        commentMessage:'hello world'
+        commentMessage: 'hello world'
       }
     })
   }
@@ -116,7 +116,7 @@ class App extends Component {
     const newrankList = rankList.filter(item => item.rankid !== rankid)
     this.setState({ rankList: newrankList })
   }
-  
+
   render() {
     const { selectedOptionKey } = this.state;
     const CancelButton = item => (
@@ -203,8 +203,8 @@ class App extends Component {
                     onClick={this.onclickMinusList} />
                   -Dislike
                 </button>
-                <button className ="btn btn-warning">
-                Comment
+                <button className="btn btn-warning">
+                  Comment
                 </button>
               </div>
             </div>
@@ -220,7 +220,7 @@ class App extends Component {
                   <div className={`container${item.rankid}`} key={item.rankid}>
                     <div className='row' style={{ float: 'left' }}>
                       <img
-                        src={`https://loremflickr.com/120/120?random=${item.rankid}`}
+                        src={`https://loremflickr.com/120/120?random=${item.id}`}
                         alt="users" />
                     </div>
                     <div className='row border border-primary' key={item.rankid} style={{ marginLeft: 120, marginBottom: 40 }} >
@@ -229,14 +229,23 @@ class App extends Component {
                         {item.date.toLocaleDateString('en-US')} {item.date.toLocaleTimeString('en-US')} {"\n"}
                         {/* <MovieNames doitList={this.state.doitList} rankList={this.state.rankList} /> {"\n"} */}
 
+
                       </div>
                       <p className='w-100'>{item.rankMessage}</p>
-                      <Users rankList={this.state.rankList} userList={this.state.userList} userNames={this.state.userNames} />
+                      {/* <Users rankList={this.state.rankList} userList={this.state.userList} userNames={this.state.userNames} /> */}
+                      <div style={{ float: 'left' }}>
+                        <img
+                          src={`https://loremflickr.com/30/30?random=${item.id}`}
+                          alt="users" />
+                      </div>
 
+                      <div>
+                        Usernames : {item.uname}
+                      </div>
                       {/* <div style={{ float: 'left' }}>
                         <img
                           src={`https://loremflickr.com/30/30?random=${this.rankList.uname}`}
-                          alt="users" />
+                          alt="users" /> 
                       </div>
                       <div>
                         user name : {this.rankList.uname}

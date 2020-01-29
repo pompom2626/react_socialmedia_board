@@ -5,11 +5,7 @@ let dataJson={
         docontents: '',
         userList: [],
         userNames: '',
-        rankList: [{
-            commentList:[{
-                
-            }]
-        }],
+        rankList: [],
         rankContents: '',
         
         selectedOptionKey: "",
