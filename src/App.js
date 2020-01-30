@@ -42,7 +42,7 @@ class App extends Component {
       rankid: this.state.likeId,  //change message
       completedDecision: true,
       date: new Date(),
-      uid: userId++,
+      uid: userId,
       uname: userNames
     }
 
@@ -64,14 +64,30 @@ class App extends Component {
     this.setState({ rankList: newrankList })
   }
 
-  onclickreplyList = () => {
-    const { rankList, rankContents, userNames, userList } = this.state;
+  /* onclickReplyUserList = () => {
+    const{rankList ,userNames} = this.state;
+    if (userNames.length === 0) return alert('Please, input user name')
+    const replyUserContent = {
+      id: userId++,
+      uname: userNames
+    }
+    const newuserList = userList.map((userList) => {
+      return userList
+    });
+    newuserList.push(userNamesContent)
+    this.setState({ userList: newuserList })
+  } */
 
+  
+
+  onclickreplyList = () => {
+    const { rankList, replycommentContents, userNames, userList } = this.state;
+    if (replycommentContents.length === 0) return alert('Please, input your reply')
     const replyContents = {
       ...rankList,
       replyList: {
         id: replyId++,
-        replyMessage: '',
+        replyMessage: replycommentContents,
         cname: '',
         date: new Date()
       }
@@ -80,7 +96,13 @@ class App extends Component {
     const newreplyList = rankList.map((rankList) => {
       return rankList
     });
-    newreplyList.push(replyContents);
+
+    /*  if (Object.keys(this.newreplyList).length < Object.keys(userList).length) { */
+    newreplyList.push(replyContents)
+    /* } else {
+      alert('Input user name first!');
+    } */
+
     this.setState({ rankList: newreplyList })
   }
 
@@ -100,6 +122,10 @@ class App extends Component {
 
   onchangeVotingContents = (e) => {
     this.setState({ rankContents: e.target.value })
+  }
+
+  onchangeReplyContents = (e) => {
+    this.setState({ replycommentContents: e.target.value })
   }
 
   onchangeDoContents = (e) => {
@@ -128,9 +154,21 @@ class App extends Component {
     this.setState({ rankList: newrankList })
   }
 
+
+
   render() {
     const { selectedOptionKey } = this.state;
-   
+
+    const CancelButton = item => (
+      <button
+        // className='btn btn-warning btn-sm'
+        style={{ marginLeft: 10 }}
+        onClick={() => this.onclickRemoveButton(item.rankid)}
+      >
+        Delete
+      </button>
+    )
+
     return (
 
       <div className='container' style={{ maxWidth: 600, padding: '20px 0' }}>
@@ -174,7 +212,7 @@ class App extends Component {
                 >
                   Submit
               </button>
-            </div>
+              </div>
             </div>
             <div className='input-group'>
 
@@ -198,7 +236,7 @@ class App extends Component {
                     onClick={this.onclickMinusList} />
                   -Dislike
                 </button>
-               {/*  <button className="btn btn-warning">
+                {/*  <button className="btn btn-warning">
                   Reply
                 </button> */}
               </div>
@@ -208,7 +246,90 @@ class App extends Component {
         <div className='row' style={{ marginTop: 20 }}>
           <div /* className='col-6' */ >
             <h3> My Social Communication  </h3>
-            <Users rankList={this.state.rankList} userList={this.state.userList} userNames={this.state.userNames} />
+
+            {
+              this.state.rankList.filter(item => item.completedDecision).map(item =>
+                <React.Fragment>
+                  <div className={`container${item.rankid}`} key={item.rankid}>
+                    <div className='row' style={{ float: 'left' }}>
+                      <img
+                        src={`https://loremflickr.com/120/120?random=${item.uname}`}
+                        alt="users" />
+                    </div>
+                    <div className='row border border-primary' key={item.rankid} style={{ marginLeft: 120, marginTop: 40 }} >
+                      <div className='col-sm'>Ranking Scores: {item.rankid}{"\n"}</div>
+                      <div className='col-sm' style={{ marginRight: 5, whiteSpace: "pre-wrap" }}>
+                        {item.date.toLocaleDateString('en-US')} {item.date.toLocaleTimeString('en-US')} {"\n"}
+                        {/* <MovieNames doitList={this.state.doitList} rankList={this.state.rankList} /> {"\n"} */}
+
+
+                      </div>
+                      <p className='w-100'>{item.rankMessage}</p>
+                      {/* <Users rankList={this.state.rankList} userList={this.state.userList} userNames={this.state.userNames} /> */}
+                      <div style={{ float: 'left' }}>
+                        <img
+                          src={`https://loremflickr.com/40/40?random=${item.uname}`}
+                          alt="users" />
+                      </div>
+
+                      <div>
+                        Usernames : {item.uname}
+                      </div>
+
+                      <div>{CancelButton(item)}</div>
+
+
+                    </div>
+                    {/* Comment Reply Messages Redndering */}
+                    {/* <div className='border border-primary' key={item.rankid} style={{ marginLeft: 120, marginTop: 10 }}>
+                            <b>abc</button><button>UserName</button>
+                            <button>abc</button><button>Submit</button>
+                        </div> */}
+                    <div className='input-group'>
+                      <input
+                        type='text'
+                        className='form-control'
+                        placeholder='Input comment user name'
+                        /* value={this.state.userNames} */
+                        /* onChange={this.onchangeUserNames} */
+                        onKeyDown={e => e.keyCode === 13 ? this.onclickUserListOrigin() : null}
+                      />
+                      <div className='input-group-append'>
+                        <button
+                          className='btn btn-success'
+                          onClick={this.onclickUserListOrigin}
+                        >
+                          Submit
+                                </button>
+                      </div>
+                    </div>
+                    <div className='input-group'>
+                      <textarea
+                        type='text'
+                        className='form-control'
+                        rows="2"
+                        placeholder='Input your messages here and click rank score + or -'
+                       value={this.state.replycommentContents} 
+                      onChange={this.onchangeReplyContents}
+
+                      />
+                      <div className='input-group-append'>
+                        <button
+                          className='btn btn-warning'
+                          onClick={this.onclickreplyList}
+                        >
+                          Submit
+                                </button>
+                      </div>
+                    </div>
+
+                    {/* to generate reply message */}
+
+
+                  </div>
+                </React.Fragment>
+              )
+            }
           </div>
         </div>
 

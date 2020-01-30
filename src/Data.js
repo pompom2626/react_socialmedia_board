@@ -1,5 +1,6 @@
 let dataJson={
-    
+        
+
         likeId: 0,
         doitList: [],
         docontents: '',
@@ -7,7 +8,8 @@ let dataJson={
         userNames: '',
         rankList: [],
         rankContents: '',
-        
+       // replyuserList:[],
+        replycommentContents: '',
         selectedOptionKey: "",
       
        

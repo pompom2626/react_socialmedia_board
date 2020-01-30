@@ -3,10 +3,28 @@ import React, { Component } from "react";
 class Users extends Component {
     constructor(props) {
         super(props);
+        //userList attach to rankLis
+        
+    } 
+    //arrow function is not working
+    /* this.onclickUserListOrigin2 = this.onclickUserListOrigin2.bind(this); */
 
-        //userList attach to rankList
+    /*  onclickUserListOrigin2 = () => {
+        const { userList, userNames } = this.props.state; 
+        if (userNames.length === 0) return alert('Please, input user name')
+        const userNamesContent = {
+            id: this.props.userId++,
+            uname: userNames
+        }
+        const newuserList = userList.map((userList) => {
+            return userList
+        });
+        newuserList.push(userNamesContent)
+        this.setState({ userList: newuserList })
+     }
+   */
 
-    }
+
     render() {
         //userList object go inside rankList object
         /*     let newuserNames;
@@ -66,15 +84,15 @@ class Users extends Component {
                             <input
                                 type='text'
                                 className='form-control'
-                                placeholder='Input user name'
+                                placeholder='Input comment user name'
                                 /* value={this.state.userNames} */
-                                onChange={this.onchangeUserNames}
-                                onKeyDown={e => e.keyCode === 13 ? this.onclickUserListOrigin() : null}
+                                /* onChange={this.onchangeUserNames} */
+                                onKeyDown={e => e.keyCode === 13 ? this.props.action() : null}
                             />
                             <div className='input-group-append'>
                                 <button
                                     className='btn btn-success'
-                                    onClick={this.onclickUserListOrigin}
+                                    onClick={this.props.action}
                                 >
                                     Submit
                                 </button>
@@ -87,18 +105,21 @@ class Users extends Component {
                                 rows="2"
                                 placeholder='Input your messages here and click rank score + or -'
                                 /*   value={this.state.votingContents} */
-                                onChange={this.onchangeVotingContents}
+                                /* onChange={this.onchangeVotingContents} */
 
                             />
                             <div className='input-group-append'>
                                 <button
                                     className='btn btn-warning'
-                                    onClick={this.onclickRankList}
+                                    onClick={this.props.action}
                                 >
                                     Submit
                                 </button>
                             </div>
                         </div>
+
+                        {/* to generate reply message */}
+
 
                     </div>
                 </React.Fragment>
