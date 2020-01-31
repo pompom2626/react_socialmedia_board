@@ -3,7 +3,7 @@ import './Header.css';
 
 const Header = () => (
     <div className="Header">
-        Free Style Chatting Board
+        Dynamic Generating Messages Board
     </div>
 )
 

@@ -36,31 +36,48 @@ class App extends Component {
   onclickRankList = () => {
     const { rankList, rankContents, userNames, userList } = this.state;
     if (rankContents.length === 0) return alert('Please, input rank scores from 1 to 100');
-    
       const votingContents = {
-      id: rankindexId++,
+    /*   id: rankindexId++,
       rankMessage: rankContents,
       rankid: this.state.likeId,  //change message
       completedDecision: true,
       date: new Date(),
       uid: userId,
-      uname: userNames
+      uname: userNames,
+   */
+
+      date: new Date(),
+      uname: userNames,
+      rankMessage: rankContents,
+      completedDecision: true,
+      rankid: this.state.likeId,
+      id: rankindexId++,
+      uid: userId,
+      voteLike: 0,
+      voteDislike: 0,
+
+
     }
-   
-   /*  const newrankList = rankList.map((rankList) => {
+
+    //if(Object.keys(rankList).length == Object.keys(userList).length-1){ 
+    const newrankList = rankList.map((rankList) => {
       return rankList
     });
-    newrankList.push(votingContents)  */   
-
-    //stack overflow : sort json object in javascript  https://stackoverflow.com/questions/17684921/sort-json-object-in-javascript
+   /*  if (Object.keys(newrankList).length < Object.keys(userList).length) {
+      newrankList.push(votingContents)
+    } else {
+      alert('Input user name first!');
+    }  */
+    newrankList.push(votingContents)
+    this.setState({ rankList: newrankList }) 
     //ranking sorting => To do list1 : to send outside event 
     /* newrankList.sort(function (a, b) {
       return b.rankid - a.rankid;
     }); */
-    /* this.setState({rankList: rankList.concat({votingContents})  }) ; */
+    
   }
 
- /*   onclickReplyUserList = () => {
+  /* onclickReplyUserList = () => {
     const{rankList ,userNames} = this.state;
     if (userNames.length === 0) return alert('Please, input user name')
     const replyUserContent = {
@@ -72,7 +89,7 @@ class App extends Component {
     });
     newuserList.push(userNamesContent)
     this.setState({ userList: newuserList })
-  }  */
+  } */
 
 
 
@@ -93,7 +110,12 @@ class App extends Component {
       return rankList
     });
 
-    newreplyList.push(replyContents)  
+    /*  if (Object.keys(this.newreplyList).length < Object.keys(userList).length) { */
+    newreplyList.push(replyContents)
+    /* } else {
+      alert('Input user name first!');
+    } */
+
     this.setState({ rankList: newreplyList })
   }
 
@@ -232,7 +254,7 @@ class App extends Component {
             <h3> My Social Communication  </h3>
 
             {
-              this.state.rankList.filter(item => item.completedDecision).map((item,index) =>
+              this.state.rankList.filter(item => item.completedDecision).map(item =>
                 <React.Fragment>
                   <div className={`container${item.rankid}`} key={item.rankid}>
                     <div className='row' style={{ float: 'left' }}>
