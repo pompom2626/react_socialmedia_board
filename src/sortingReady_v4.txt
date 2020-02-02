@@ -6,9 +6,9 @@ import dataJson from './Data.js'
 import { Header } from './components';
 /* import {Reply} from './Reply'; */
 
-//increas do list items for sorting time series
+//increas do list items
 let userId = 4;
-let timeindexId = 5;
+let rankindexId = 0;
 
 
 //img id and reference addr
@@ -18,7 +18,6 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = JSON.parse(JSON.stringify(dataJson));
-    this.setState()
   }
 
 
@@ -51,7 +50,7 @@ class App extends Component {
       rankMessage: rankContents,
       completedDecision: true,
       rankid: this.state.likeId,  //change message
-      id: timeindexId++,
+      id: rankindexId++,
       uid: 5,
       peopleLike: 0,
       peopleDislike: 0,
@@ -59,17 +58,14 @@ class App extends Component {
       feelCry: 0,
       feelPleading: 0,
       replyList: [{
-        date: ''/* new Date() */,
-        replyMessage: ''/* replycommentContents */,
-        uname: '' /* selectedUser */,
-        uImage: '' /* selectedImage */
+        date: new Date(),
+        replyMessage: replycommentContents,
+        uname: selectedUser,
+        uImage: selectedImage
       }]
     }
 
-    this.setState({
-      rankList: [votingContents, ...rankList],
-      recoveryOriginalState: [votingContents, ...rankList]
-    });
+    this.setState({ rankList: [votingContents, ...rankList] });
     // console.log(`i need this value : ${index}`);
   }
 
@@ -95,21 +91,11 @@ class App extends Component {
       date: new Date(),
       replyMessage: replycommentContents,
       uname: selectedUser,
-      uImage: selectedImage,
-      completedDecision: true,
-      rankid: this.state.likeId,  //change message
-      id: timeindexId++,
-      uid: 5,
-      peopleLike: 0,
-      peopleDislike: 0,
-      feelSmile: 0,
-      feelCry: 0,
-      feelPleading: 0,
+      uImage: selectedImage
     }
     let changerankList = [...this.state.rankList];
     changerankList[index].replyList = [replyContents, ...changerankList[index].replyList];
-    this.setState({ rankList: [...changerankList] 
-      , recoveryOriginalState: [...changerankList]});
+    this.setState({ rankList: [...changerankList] });
   }
   /* 
     let newCommentList=[...this.state.commentList];
@@ -138,42 +124,31 @@ class App extends Component {
   onclickLikeList = (index) => {
     let clickrankList = [...this.state.rankList];
     clickrankList[index].peopleLike += 1;
-    this.setState({
-      rankList: [...clickrankList]
-      , recoveryOriginalState: [...clickrankList]
-    })
+    this.setState({ rankList: [...clickrankList] /* ,restorerankList[...clickrankList]  */ })
   }
 
   onclickDislikeList = (index) => {
     let clickrankList = [...this.state.rankList];
     clickrankList[index].peopleDislike += 1;
-    this.setState({
-      rankList: [...clickrankList]
-      , recoveryOriginalState: [...clickrankList]
-    })
+    this.setState({ rankList: [...clickrankList] /* ,restorerankList[...clickrankList]  */ })
   }
 
   onclickSmileList = (index) => {
     let clickrankList = [...this.state.rankList];
     clickrankList[index].feelSmile += 1;
-    this.setState({
-      rankList: [...clickrankList]
-      , recoveryOriginalState: [...clickrankList]
-    })
+    this.setState({ rankList: [...clickrankList] /* ,restorerankList[...clickrankList]  */ })
   }
 
   onclickCryList = (index) => {
     let clickrankList = [...this.state.rankList];
     clickrankList[index].feelCry += 1;
-    this.setState({ rankList: [...clickrankList] 
-      , recoveryOriginalState: [...clickrankList] })
+    this.setState({ rankList: [...clickrankList] /* ,restorerankList[...clickrankList]  */ })
   }
 
   onclickPleadingList = (index) => {
     let clickrankList = [...this.state.rankList];
     clickrankList[index].feelPleading += 1;
-    this.setState({ rankList: [...clickrankList]
-      , recoveryOriginalState: [...clickrankList] })
+    this.setState({ rankList: [...clickrankList] /* ,restorerankList[...clickrankList]  */ })
   }
 
   onchangeUserNames = (e) => {
@@ -208,7 +183,7 @@ class App extends Component {
   onclickRemoveButton = (id) => {
     const { rankList } = this.state
     const newrankList = rankList.filter(item => item.id !== id)
-    this.setState({ rankList: newrankList, recoveryOriginalState: [...newrankList] })
+    this.setState({ rankList: newrankList })
   }
 
   onChangeSelectUser = (e) => {
@@ -220,6 +195,8 @@ class App extends Component {
         icon = changeuserList[i].uImage;
       }
     }
+    console.log(changeuserList);
+    console.log(icon);
     //Initialize User selection
     this.setState({
       selectedUser: e.target.value,
@@ -227,98 +204,8 @@ class App extends Component {
     })
   }
 
-  onchangeAllSorting = ({ target: { value } }) => {
-    let { rankList, userList } = this.state;
-    switch (value) {
-      case '0':
-        rankList = rankList.sort((a, b) => {
-          return b.id - a.id;
-        })
-        this.setState({ rankList: [...rankList] })
-        break;
-
-      case '1':
-        rankList = rankList.sort((a, b) => {
-          return a.id - b.id;
-        })
-        this.setState({ rankList: [...rankList] })
-        break;
-
-      case '2':
-        rankList.sort(function (a, b) {
-          return b.rankid - a.rankid;
-        });
-        this.setState({ rankList: rankList })
-        break;
-
-      case '3':
-        rankList = rankList.sort((a, b) => a.rankMessage.length - b.rankMessage.length);
-        this.setState({ rankList: rankList })
-        break;
-
-      case '4':
-        rankList = rankList.sort((a, b) => b.rankMessage.length - a.rankMessage.length);
-        this.setState({ rankList: rankList })
-        break;
-
-      case '5':
-        rankList = rankList.sort((a, b) => b.peopleLike - a.peopleLike);
-        this.setState({ rankList: rankList })
-        break;
-
-      case '6':
-        rankList = rankList.sort((a, b) => b.peopleDislike - a.peopleDislike);
-        this.setState({ rankList: rankList })
-        break;
-
-      default:
-        break;
-    }
-  }
-
-  onchangeUserSorting = ({ target: { value } }) => {
-    /* alert(value);  Data should be brought by another storage instead of rankList*/
-    let { rankList, userList } = this.state;
-    /* Data should be brought by another storage instead of rankList */
-    let filterUserGroups = [...this.state.recoveryOriginalState];
-    alert(filterUserGroups);
-    /* Ready for sorting all users data */
-    this.setState({ rankList:[...this.state.recoveryOriginalState]})
-    
-    if (value !== 'Recovery to All Users') {
-      alert(filterUserGroups);
-      filterUserGroups = filterUserGroups.filter((user, index) => {
-        alert(value);
-        alert(user.uname);
-        return user.uname == value
-      })
-      alert(rankList);
-      this.setState({ rankList: [...filterUserGroups] });
-    }
-    else {
-       this.setState({ rankList: this.state.recoveryOriginalState }) 
-    }
-
-    /* commentList:[...this.state.backupCommentList],
-       })
-   
-       let newCommentList=[...this.state.backupCommentList];
-       if(e.target.value==="Sorting by username"){
-       newCommentList= newCommentList.filter((item)=>{
-           return item.defaultPerson===this.state.defaultPerson;
-         })
-         this.setState({
-           commentList:[...newCommentList],
-         }) */
-    /*  let changerankList = [...this.state.rankList];
-     changerankList[index].replyList = [replyContents, ...changerankList[index].replyList];
-     this.setState({ rankList: [...changerankList] }); */
-
-
-  }
 
   render() {
-
 
     const CancelButton = item => (
       <button
@@ -363,7 +250,7 @@ class App extends Component {
                 >
                   Log-in
                 </button>
-                onChangeSelectUser     </div>
+              </div>
             </div>
             {/* User selection */}
             <div className='input-group'>
@@ -452,42 +339,20 @@ class App extends Component {
 
 
 
-        {/* DISPLAY BY DATE, LIKE SCORES, WORD LENGTH, USERS */}
-        <div className='input-group' style={{ marginTop: 20 }}>
-          <div /* className='input-group-append' */ >
-            <h5 >Displaying by Sorting</h5>
-            <select onChange={this.onchangeAllSorting}>
-              <option>Choose</option>
-              <option value="0">Recent</option>
-              <option value="1">Oldest</option>
-              <option value="2">Post Level</option>
-              <option value="3">Asc Length</option>
-              <option value="4">Desc Length</option>
-              <option value="5">Like Scores</option>
-              <option value="6">Dislike Scores</option>
-            </select>
-          </div>
-
-          {/* <label htmlFor="#desc">Select sort:</label>
-                <select id="desc" onChange={this.blogSort}>
-                <option value="">Default</option>
-                  <option value="0">Asc</option>
-                  <option value="1">Desc</option>
-                </select> */}
-          {/* SORTING USERS UI */}
-          <div style={{ marginLeft: 20 }}  /* className='input-group-append' */ >
-            <h5 >Sorting by users</h5>
-            <select onChange={this.onchangeUserSorting}>
-              <option>Recovery to All Users</option>
-              {
-                this.state.userList.map((sort, index) =>
-                  <option key={index} value={sort.uname} style={{ margin: 10, marginRight: 5 }}>
-                    {sort.uname} </option>
-                )
-              }
-            </select>
-          </div>
+        {/* SORTING UI */}
+        <div >
+          <h5 className='input-group'>Sorting</h5>
+          <select onChange={this.onchangeUserNames}>
+            <option>Choose</option>
+            {
+              this.state.userList.map((item, index) =>
+                <option key={new Date().getTime() + index} style={{ margin: 10, marginRight: 5 }}>
+                  -{item.uname} {"\n"} </option>
+              )
+            }
+          </select>
         </div>
+
 
 
 
@@ -549,9 +414,6 @@ class App extends Component {
                       </button>
                     </div>
                   </div>
-                  <h6 className='input-group'>
-                    Post Level : {this.state.rankList[index].rankid}
-                  </h6>
                   <div className='col-sm' style={{ marginRight: 5, whiteSpace: "pre-wrap" }}>
                   </div>
                   <p className='w-100'>{item.rankMessage}</p>
@@ -600,17 +462,17 @@ class App extends Component {
                       {/* user image */}
                       <div className='input-group-append' style={{ float: 'left' }}>
                         <div>
-                          <img className='rounded-circle' style={{ width: 50, height: 50, marginRight: 10, marginBottom: 12, marginTop: 10 }}
-                            src={reply.uImage} alt="users" />
-                        </div>
-                        <div style={{ marginLeft: 10, marginTop: 20 }}>
-                          Usernames : {reply.uname}
-                        </div>
-                        <div style={{ marginLeft: 10, marginTop: 20 }}>
-                          {reply.date.toLocaleString('en-US')}
-                        </div>
-                        <div style={{ marginLeft: 10, marginTop: 20 }}
-                        >{CancelButton(item)}</div>
+                        <img className='rounded-circle' style={{ width: 50, height: 50, marginRight: 10, marginBottom: 12 ,marginTop:10 }}
+                          src={item.uImage} alt="users" />
+                      </div>
+                      <div style={{ marginLeft: 10, marginTop: 20 }}>
+                        Usernames : {item.uname}
+                      </div>
+                      <div style={{ marginLeft: 10, marginTop: 20 }}>
+                        {item.date.toLocaleString('en-US')}
+                      </div>
+                      <div style={{ marginLeft: 10, marginTop: 20 }}
+                      >{CancelButton(item)}</div>
                       </div>
                     </div>
                   </div>
