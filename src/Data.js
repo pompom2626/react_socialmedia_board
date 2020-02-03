@@ -11,16 +11,10 @@ let dataJson = {
   rankContents: '',
   replycommentContents: '',
   replyMessage: '',
- 
+  
   //////////////selection user
   selectedUser: 'JS',
   selectedImage: 'http://placekitten.com/50/50',
-
-  testData: [{
-    id: 11,
-    name: 'pp'
-  }],
-  ////////////////
 
   userList: [
     { uid: 0, uname: "JS", uImage: "http://placekitten.com/50/50" },
@@ -43,6 +37,8 @@ let dataJson = {
       feelSmile:5,
       feelCry:5,
       feelPleading:5,
+      display: '',
+
       replyList: [
         {
           date: "2020-01-30T22:28:34.",
@@ -79,6 +75,8 @@ let dataJson = {
       feelSmile:5,
       feelCry:5,
       feelPleading:5,
+      display: '',
+
       replyList: [
         {
           date: "2020-01-30T22:28:34.",
@@ -109,6 +107,8 @@ let dataJson = {
       feelSmile:5,
       feelCry:5,
       feelPleading:5,
+      display: '',
+
       replyList: [
         {
           date: "2020-01-30T22:28:34.",
@@ -144,6 +144,8 @@ let dataJson = {
       feelSmile:5,
       feelCry:5,
       feelPleading:5,
+      display: '',
+
       replyList: [
         {
           date: "2020-01-30T22:28:34.",
@@ -179,6 +181,8 @@ let dataJson = {
       feelSmile:5,
       feelCry:5,
       feelPleading:5,
+      display: '',
+
       replyList: [
         {
           date: "2020-01-30T22:28:34.",
@@ -218,6 +222,7 @@ let dataJson = {
       feelSmile:5,
       feelCry:5,
       feelPleading:5,
+      display: '',
       replyList: [
         {
           date: "2020-01-30T22:28:34.",
@@ -254,6 +259,7 @@ let dataJson = {
       feelSmile:5,
       feelCry:5,
       feelPleading:5,
+      display: '',
       replyList: [
         {
           date: "2020-01-30T22:28:34.",
@@ -284,6 +290,7 @@ let dataJson = {
       feelSmile:5,
       feelCry:5,
       feelPleading:5,
+      display: '',
       replyList: [
         {
           date: "2020-01-30T22:28:34.",
@@ -319,6 +326,7 @@ let dataJson = {
       feelSmile:5,
       feelCry:5,
       feelPleading:5,
+      display: '',
       replyList: [
         {
           date: "2020-01-30T22:28:34.",
@@ -354,6 +362,7 @@ let dataJson = {
       feelSmile:5,
       feelCry:5,
       feelPleading:5,
+      display: '',
       replyList: [
         {
           date: "2020-01-30T22:28:34.",

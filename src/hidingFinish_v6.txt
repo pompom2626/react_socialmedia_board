@@ -65,9 +65,22 @@ class App extends Component {
       rankList: [votingContents, ...rankList],
       recoveryOriginalState: [votingContents, ...rankList]
     });
+    // console.log(`i need this value : ${index}`);
   }
 
- 
+  /*   onclickReplyUserList = () => {
+     const{rankList ,userNames} = this.state;
+     if (userNames.length === 0) return alert('Please, input user name')
+     const replyUserContent = {
+       id: userId++,
+       uname: userNames
+     }
+     const newuserList = userList.map((userList) => {
+       return userList
+     });
+     newuserList.push(userNamesContent)
+     this.setState({ userList: newuserList })
+   }  */
 
 
   onclickreplyList = (index) => {
@@ -95,7 +108,18 @@ class App extends Component {
       , recoveryOriginalState: [...changerankList]
     });
   }
-
+  /* 
+    let newCommentList=[...this.state.commentList];
+    let markTime=new Date().getTime();
+    let person={markTime:markTime,defaultPerson:this.state.defaultPerson,headImg:this.state.defaultHeadImg,commentText:this.state.netCommentText,voteLove:0,voteThumb:0,voteSmile:0,voteAngry:0,voteSad:0}
+    newCommentList[index].anotherPersonComment=[person,...newCommentList[index].anotherPersonComment];
+    this.setState({
+      commentList:[...newCommentList],
+      backupCommentList:[...newCommentList],
+      insideComment:"",
+      netCommentText:"",
+    })
+   */
 
 
   onclickAddList = () => {
@@ -282,11 +306,13 @@ class App extends Component {
     rankList[index].completedDecision = !rankList[index].completedDecision;
     this.setState({
       rankList,
+      recoveryOriginalState: [...rankList],
     });
   };
 
   openAllHiding = (e) => {
-    let openrankList = [...this.state.recoveryOriginalState];
+    alert(e);
+    let openrankList = [...this.state.rankList];
     for (let i = 0; i < openrankList.length; i++) {
       openrankList[i].completedDecision = true;
     }
@@ -297,7 +323,24 @@ class App extends Component {
   }
 
 
- 
+  /* hideMessage = (index) => {
+    let hiderankList=[...this.state.ranktList];
+    hiderankList[index].display="none";
+    this.setState({
+      rankList:[...hiderankList],
+      recoveryOriginalState:[...hiderankList],
+    })
+  }
+
+  showMessage = (index) => {
+    let showrankList=[...this.state.ranktList];
+    showrankList[index].display===""?showrankList[index].display="none":showrankList[index].display="";
+    this.setState({
+      rankList:[...showrankList],
+      recoveryOriginalState:[...showrankList],
+    })
+  }
+   */
 
 
   render() {
@@ -451,7 +494,12 @@ class App extends Component {
             </select>
           </div>
 
-  
+          {/* <label htmlFor="#desc">Select sort:</label>
+                <select id="desc" onChange={this.blogSort}>
+                <option value="">Default</option>
+                  <option value="0">Asc</option>
+                  <option value="1">Desc</option>
+                </select> */}
           {/* SORTING USERS UI */}
           <div style={{ marginLeft: 20 }}  /* className='input-group-append' */ >
             <h5 >Sorting by users</h5>
@@ -566,6 +614,11 @@ class App extends Component {
                         >
                           Comment
                       </button>
+
+                        {/*  <img alt='hideshow'
+                        src={this.rankList[index].display === "" ? "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/237/zipper-mouth-face_1f910.png" : "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/237/face-with-open-mouth_1f62e.png"}
+                        onClick={() => { this.showMessage(index) }}
+                      /> */}
                       </div>
                     </div >
                   </div>
@@ -580,6 +633,9 @@ class App extends Component {
                         <p className='form-control border border-white' /* defaultValue='Display Comments Here' */>
                           {reply.replyMessage}
                         </p>
+                        {/* <button onclick={e => this.onclickreplytest(e)}>
+                        reply test
+                      </button> */}
                         {/* user image */}
                         <div className='input-group-append' style={{ float: 'left' }}>
                           <div>
