@@ -16,6 +16,13 @@ let dataJson = {
   selectedUser: 'JS',
   selectedImage: 'http://placekitten.com/50/50',
 
+  //////////////Movie search
+  repos:[],
+  movie: '',
+  page:'',
+  title:'',
+  plot:'',
+
   userList: [
     { uid: 0, uname: "JS", uImage: "http://placekitten.com/50/50" },
     { uid: 1, uname: "Cplus", uImage: "http://placekitten.com/50/51" },

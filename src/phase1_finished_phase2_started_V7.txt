@@ -9,7 +9,7 @@ import { Header } from './components';
 //increas do list items for sorting time series
 let userId = 4;
 let timeindexId = 5;
-const url = "https://www.omdbapi.com/?apikey=68b0a95b&type=movie&plot=full&t=need for speed";
+
 
 //img id and reference addr
 /* https://loremflickr.com/320/240?random=1 */
@@ -21,22 +21,6 @@ class App extends Component {
     this.setState()
   }
 
-  //FETCH MOVIE API Here
-
-  componentDidMount() {
-    fetch(url)
-      .then(res => res.json())
-      .then(repos => {
-        console.log(repos);
-        console.log(repos.length);
-        this.setState({
-          repos: repos
-        });
-      }).catch((e) => { alert(e) });
-  };
-
-
-  
 
   /* FOR ADDITIONAL WORK - TO DO LIST */
   //reuse for final project
@@ -83,6 +67,7 @@ class App extends Component {
     });
   }
 
+ 
 
 
   onclickreplyList = (index) => {
@@ -312,7 +297,7 @@ class App extends Component {
   }
 
 
-
+ 
 
 
   render() {
@@ -341,6 +326,8 @@ class App extends Component {
             </div>
 
 
+
+
             {/*   User HANDLING Part */}
             <div className='input-group'>
               <h5>Input New User :</h5>
@@ -359,7 +346,7 @@ class App extends Component {
                 >
                   Log-in
                 </button>
-              </div>
+                onChangeSelectUser     </div>
             </div>
             {/* User selection */}
             <div className='input-group'>
@@ -464,7 +451,7 @@ class App extends Component {
             </select>
           </div>
 
-
+  
           {/* SORTING USERS UI */}
           <div style={{ marginLeft: 20 }}  /* className='input-group-append' */ >
             <h5 >Sorting by users</h5>
@@ -488,22 +475,11 @@ class App extends Component {
 
         {/* Posting Part Start */}
         <div className='row' style={{ marginTop: 20 }}>
-          <h3> My Movie Communication  - Need For Speed </h3>
-          {/* TEST MOVIE API 
-              FOR DEVELOPING THIS SITE IN THE FUTURE
-                     { this.state.repos.map(item =>  */}
-          <div>
-            {this.state.repos.Plot}
-          </div>
-          {/*     )}   */}
+          <h3> My Social Communication  </h3>
           {/* main posting articles mapping start */}
-
-
-
 
           {
             this.state.rankList.map((item, index) =>
-            //CONDITIONAL RENDERING SHOW  
               item.completedDecision ?
                 <div key={index} className={`container${item.rankid}`}  >
                   <div className='row "' style={{ float: 'left', marginBottom: 12, marginTop: 40 }}>
@@ -623,7 +599,7 @@ class App extends Component {
                     </div>
                   ))}
                 </div>
-                : null //CONDITIONAL RENDERING HIDE                
+                : null
             )
           }
         </div>
